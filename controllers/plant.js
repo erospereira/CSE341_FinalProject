@@ -1,10 +1,10 @@
 const mongodb = require('../data/database');
 const ObjectId = require('mongodb').ObjectId;
 
-const DATABASE = "PROJECT2";
-const COLLECTION_NAME = "Department";
+const DATABASE = "Final_Project";
+const COLLECTION_NAME = "Plant";
 
-const getAllDepartments = async (req, res) => {
+const getAllPlants = async (req, res) => {
   const result = await mongodb
     .getDatabase()
     .db(DATABASE)
@@ -29,7 +29,7 @@ const getAllDepartments = async (req, res) => {
   // });
 };
 
-const getSingleDepartment = async (req, res) => {
+const getSinglePlant = async (req, res) => {
   const employeeId = new ObjectId(req.params.id);
   const result = await mongodb
     .getDatabase()
@@ -50,15 +50,15 @@ const getSingleDepartment = async (req, res) => {
   // });
 };
 
-const createDepartment = async (req, res) => {
-  const department = {
+const createPlant = async (req, res) => {
+  const plant = {
     Name: req.body.Name
   };
   const response = await mongodb
     .getDatabase()
     .db(DATABASE)
     .collection(COLLECTION_NAME)
-    .insertOne(department);
+    .insertOne(plant);
 
   console.log('response: ' + JSON.stringify(response));
   if (response.acknowledged == true) {
@@ -67,14 +67,14 @@ const createDepartment = async (req, res) => {
     res.status(500).json(response.error || 'Failed to create user.');
   }
 };
-const updateDepartment = async (req, res) => {
-  const departmentId = new ObjectId(req.params.id);
-  const department = req.body
+const updatePlant = async (req, res) => {
+  const plantId = new ObjectId(req.params.id);
+  const plant = req.body
   const response = await mongodb
     .getDatabase()
     .db(DATABASE)
     .collection(COLLECTION_NAME)
-    .replaceOne({ _id: departmentId }, department);
+    .replaceOne({ _id: plantId }, plant);
   console.log('response: ' + JSON.stringify(response));
   if (response.modifiedCount > 0) {
     res.status(204).send();
@@ -82,14 +82,14 @@ const updateDepartment = async (req, res) => {
     res.status(500).json(response.error || 'Failed to update user.');
   }
 };
-const deleteDepartment = async (req, res) => {
-  const departmentId = new ObjectId(req.params.id);
+const deletePlant = async (req, res) => {
+  const plantId = new ObjectId(req.params.id);
 
   const response = await mongodb
     .getDatabase()
     .db(DATABASE)
     .collection(COLLECTION_NAME)
-    .deleteOne({ _id: departmentId });
+    .deleteOne({ _id: plantId });
   console.log('response: ' + JSON.stringify(response));
   if (response.deletedCount > 0) {
     res.status(204).send();
@@ -99,9 +99,9 @@ const deleteDepartment = async (req, res) => {
 };
 
 module.exports = {
-  getAllDepartments,
-  getSingleDepartment,
-  createDepartment,
-  updateDepartment,
-  deleteDepartment
+  getAllPlants,
+  getSinglePlant,
+  createPlant,
+  updatePlant,
+  deletePlant
 };

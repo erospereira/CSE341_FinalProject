@@ -1,11 +1,11 @@
 const mongodb = require('../data/database');
 const ObjectId = require('mongodb').ObjectId;
 
-const DATABASE = "PROJECT2";
-const COLLECTION_NAME = "Employee";
+const DATABASE = "Final_Project";
+const COLLECTION_NAME = "User";
 
-const getAllEmployees = async (req, res) => {
-  console.log("getAllEmployess1");
+const getAllUsers = async (req, res) => {
+  
   const result = await mongodb
     .getDatabase()
     .db(DATABASE)
@@ -37,13 +37,13 @@ const getAllEmployees = async (req, res) => {
   // });
 };
 
-const getSingleEmployee = async (req, res) => {
-  const employeeId = new ObjectId(req.params.id);
+const getSingleUser = async (req, res) => {
+  const userId = new ObjectId(req.params.id);
   const result = await mongodb
     .getDatabase()
     .db(DATABASE)
     .collection(COLLECTION_NAME)
-    .find({ _id: employeeId });
+    .find({ _id: userId });
   result.toArray((err, result) => {
     if (err) {
       res.status(400).json({ message: err });
@@ -58,8 +58,8 @@ const getSingleEmployee = async (req, res) => {
   // });
 };
 
-const createEmployee = async (req, res) => {
-  const employee = {
+const createUser = async (req, res) => {
+  const user = {
     "first name": req.body['first name'],
     "last name": req.body['last name'],
     email: req.body.email,
@@ -73,7 +73,7 @@ const createEmployee = async (req, res) => {
     .getDatabase()
     .db(DATABASE)
     .collection(COLLECTION_NAME)
-    .insertOne(employee);
+    .insertOne(user);
 
   console.log('response: ' + JSON.stringify(response));
   if (response.acknowledged == true) {
@@ -82,9 +82,9 @@ const createEmployee = async (req, res) => {
     res.status(500).json(response.error || 'Failed to create user.');
   }
 };
-const updateEmployee = async (req, res) => {
-  const employeeId = new ObjectId(req.params.id);
-  const employee = {
+const updateUser = async (req, res) => {
+  const userId = new ObjectId(req.params.id);
+  const user = {
     firstName: req.body['first name'],
     lastName: req.body['last name'],
     email: req.body.email,
@@ -97,7 +97,7 @@ const updateEmployee = async (req, res) => {
     .getDatabase()
     .db(DATABASE)
     .collection(COLLECTION_NAME)
-    .replaceOne({ _id: employeeId }, employee);
+    .replaceOne({ _id: userId }, user);
   console.log('response: ' + JSON.stringify(response));
   if (response.modifiedCount > 0) {
     res.status(204).send();
@@ -105,14 +105,14 @@ const updateEmployee = async (req, res) => {
     res.status(500).json(response.error || 'Failed to update user.');
   }
 };
-const deleteEmployee = async (req, res) => {
-  const employeeId = new ObjectId(req.params.id);
+const deleteUser = async (req, res) => {
+  const userId = new ObjectId(req.params.id);
 
   const response = await mongodb
     .getDatabase()
     .db(DATABASE)
     .collection(COLLECTION_NAME)
-    .deleteOne({ _id: employeeId });
+    .deleteOne({ _id: userId });
   console.log('response: ' + JSON.stringify(response));
   if (response.deletedCount > 0) {
     res.status(204).send();
@@ -122,9 +122,9 @@ const deleteEmployee = async (req, res) => {
 };
 
 module.exports = {
-  getAllEmployees,
-  getSingleEmployee,
-  createEmployee,
-  updateEmployee,
-  deleteEmployee
+  getAllUsers,
+  getSingleUser,
+  createUser,
+  updateUser,
+  deleteUser
 };

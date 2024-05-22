@@ -2,8 +2,8 @@ const router = require('express').Router();
 
 //router.get('/' , (req, res) => { res.send('Hello World');});
 const passport = require('passport');
-router.use('/employees', require('./employees'));
-router.use('/department', require('./departments'));
+router.use('/user', require('./users'));
+router.use('/plant', require('./plants'));
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json');
