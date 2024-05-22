@@ -2,7 +2,7 @@ const mongodb = require('../data/database');
 const ObjectId = require('mongodb').ObjectId;
 
 const DATABASE = "Final_Project";
-const COLLECTION_NAME = "Plant";
+const COLLECTION_NAME = "Plants";
 
 const getAllPlants = async (req, res) => {
   const result = await mongodb

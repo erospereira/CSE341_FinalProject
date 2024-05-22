@@ -2,7 +2,7 @@ const mongodb = require('../data/database');
 const ObjectId = require('mongodb').ObjectId;
 
 const DATABASE = "Final_Project";
-const COLLECTION_NAME = "User";
+const COLLECTION_NAME = "Users";
 
 const getAllUsers = async (req, res) => {
   
