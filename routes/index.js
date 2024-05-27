@@ -4,6 +4,8 @@ const router = require('express').Router();
 const passport = require('passport');
 router.use('/user', require('./users'));
 router.use('/plant', require('./plants'));
+router.use('/order', require('./orders')); // Add this line for the 'order' collection
+router.use('/gardening-supplies', require('./gardening_supplies')); // Add this line for the 'gardening supplies' collection
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json');
@@ -11,14 +13,12 @@ const swaggerDocument = require('../swagger.json');
 router.use('/api-docs', swaggerUi.serve);
 router.get('/api-docs', swaggerUi.setup(swaggerDocument));
 
-router.get('/login', passport.authenticate('github'),(req,res) => {});
-router.get('/logout', function(req,res,next){
-    req.logout(function(err){
-        if(err){return next(err)}
-        res.redirect('/')
-    })
+router.get('/login', passport.authenticate('github'), (req, res) => {});
+router.get('/logout', function (req, res, next) {
+    req.logout(function (err) {
+        if (err) { return next(err); }
+        res.redirect('/');
+    });
 });
-
-router
 
 module.exports = router;
