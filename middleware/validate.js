@@ -44,11 +44,56 @@ const plant = (req, res, next) => {
   });
 };
 
+const order = (req, res, next) => {
+  const validationRule = {
+    orderNumber: 'required|string',
+    date: 'required|string',
+    products: 'array',
+    user_id: 'required|string',
+  
+  };
+ 
 
+  validator(req.body, validationRule, {}, (err, status) => {
+    if (!status) {
+      res.status(412).send({
+        success: false,
+        message: 'Validation failed',
+        data: err
+      });
+    } else {
+      next();
+    }
+  });
+};
+
+const gerdeningSupplies = (req, res, next) => {
+  const validationRule = {
+    product: 'required|string',
+    price: 'required|string',
+    supplierName: 'required|string',
+  
+  };
+ 
+
+  validator(req.body, validationRule, {}, (err, status) => {
+    if (!status) {
+      res.status(412).send({
+        success: false,
+        message: 'Validation failed',
+        data: err
+      });
+    } else {
+      next();
+    }
+  });
+};
 
 
 
 module.exports = {
   user,
-  plant
+  plant,
+  order,
+  gerdeningSupplies
 };

@@ -2,10 +2,12 @@ const router = require('express').Router();
 
 //router.get('/' , (req, res) => { res.send('Hello World');});
 const passport = require('passport');
+
+
 router.use('/user', require('./users'));
 router.use('/plant', require('./plants'));
-router.use('/order', require('./orders')); // Add this line for the 'order' collection
-router.use('/gardening-supplies', require('./gardening_supplies')); // Add this line for the 'gardening supplies' collection
+router.use('/order', require('./order')); // Add this line for the 'order' collection
+router.use('/gardening-supplies', require('./gardeningsupplies')); // Add this line for the 'gardening supplies' collection
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json');
