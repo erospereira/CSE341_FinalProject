@@ -1,5 +1,5 @@
 const express = require('express');
-
+var path = require('path');
 const mongodb = require('./data/database');
 const bodyParser = require('body-parser');
 const passport = require('passport')
@@ -7,10 +7,12 @@ const session = require('express-session')
 const app = express();
 const GitHubStategy = require('passport-github2').Strategy;
 const cors = require('cors');
-
+var cookieParser = require('cookie-parser');
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json())
+.use(bodyParser.urlencoded({ extended: false }))
+app.use(cookieParser())
 .use(session({
   secret: "secret",
   resave: false,
@@ -53,7 +55,7 @@ process.on('uncaughtException', (err, origin) => {
 });
 
 app.get('/', (req,res) => {
-  console.log("req.session.user == undefined: " + (req.session.user == undefined));
+  
   res.send(req.session.user !== undefined ? `Logged in as ${req.session.user.displayName}` : "Logged Out")
 });
 
@@ -75,3 +77,5 @@ mongodb.initDb((err) => {
     });
   }
 });
+
+module.exports = app;

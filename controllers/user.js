@@ -5,7 +5,7 @@ const DATABASE = "Final_Project";
 const COLLECTION_NAME = "Users";
 
 const getAllUsers = async (req, res) => {
-  
+  console.log("GETALLUSERS");
   const result = await mongodb
     .getDatabase()
     .db(DATABASE)
